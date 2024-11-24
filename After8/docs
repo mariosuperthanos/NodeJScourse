@@ -18,3 +18,6 @@ File Structure:
    - A class with functions for queries (operations for "Read" from CRUD) such as filtering, sorting, selecting specific fields, and paginations (with skip and limit) to be imported into controllers.
    - A custom error class.
    - A utility for catching asynchronous errors.
+8. **`dev-data` folder**:
+   - A function that delete all the thata from the db
+   - A function that add the json object into the db
