@@ -1,0 +1,20 @@
+File Structure:
+1. **`config.env` file**: Contains environmental variables, such as the database address or production/development environment settings.
+2. **`server.js` file**: Connects to the database and listens for port operations.
+3. **`app.js` file**: Creates the main Express object, mounts the routers, and adds middleware, such as:
+   - `express.static`
+   - `express.json`
+   - Global error-handling middleware.
+4. **`routes` folder**:
+   - Route files:
+     - Attach HTTP methods to specific routes.
+     - Include middleware for preassigning fields (e.g., for a "/top-5-cheap" page).
+5. **`models` folder**: Contains models with validators and business logic.
+6. **`controllers` folder**:
+   - CRUD operations attached to HTTP methods.
+   - Error-handling middleware.
+   - Pages with statistics using the aggregation pipeline.
+7. **`utils` folder**:
+   - A class with functions for queries (operations for "Read" from CRUD) such as filtering, sorting, selecting specific fields, and paginations (with skip and limit) to be imported into controllers.
+   - A custom error class.
+   - A utility for catching asynchronous errors.
