@@ -1,0 +1,25 @@
+operational errors(handle in advance):
+  - invalid path accesed
+  - invalid user input(validator error from Moongose)
+  - failed to connect to server
+  - failed to connect to db
+  - request timeout
+  ...
+
+we have to mark the next Moongose errors as operational, so we can send meaningful error messages:
+  - invalid path accesed( edge case for invalid id in get data by id method )
+  - invalid user input(validator error from Moongose):
+    - a property validators
+    - duplicate failds
+    - other validation errors
+
+Implementation: 
+  - a global error handling middlewere that send a message about the errors
+  - a better error class for simulating errors
+  - handling invalid paths(app.all('*', ...))
+  - middlewere function that replace try/catch from async functions and pass the errors into the global middlewere
+  - tour not found 404 errors for query method(except get all tours)
+  - development vs production errors(using process.env.NODE_ENV):
+    - development error should contain more detalis about the error
+    - in production, you should specify if the error is a programming bug or operational error
+  - a function that handles rejections and uncaught exceptions(using process.on)
