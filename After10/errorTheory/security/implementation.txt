@@ -1,0 +1,9 @@
+Sending the JWT via cookie
+
+Use:
+  - helmet() middlewere at the beggining for security headers
+  - rate limiter for requestes
+  - body size limiter : express.json({ limit: '10kb' })
+  - data sanitization against NoSQL query injection
+  - data sanitization against XSS'
+  - prevent parameters pollution with   

@@ -1,0 +1,7 @@
+A JWT token looks like this:
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDVhZjFmNTBkMzQ2Nzk0NTk1NGFhYSIsImlhdCI6MTczMjk5MDMxNSwiZXhwIjoxNzQwNzY2MzE1fQ.QuBqzNAAEKURcZGX2R9MBGqEL9-cm9buPK7Urg7mDzo"
+
+To decode the token, we need to know the value of the JWT_SECRET variable. If we decode it, the resulting object will contain the payload, which includes:
+  - the main data (e.g., the user id),
+  - "iat": The time when the token was created (issued at),
+  - "exp": The time when the token will expire.

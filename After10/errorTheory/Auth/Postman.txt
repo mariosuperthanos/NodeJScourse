@@ -1,0 +1,9 @@
+I created a new "Dev" environment that has 2 variables:
+  - URL: http://127.0.0.1:8000/, replacing the host address with {{URL}}
+  - jwt: the current token that will be saved as an environment variable. 
+    Scripts tab for UPDATING THE ENVIRONMENTAL jwt var:
+    pm.environment.set("jwt", pm.response.json().token);
+  I specified in the Authorization tab of the PROTECTED route:
+  Inheritance::
+      Auth type: Bearer Token 
+      Token: {{jwt}}

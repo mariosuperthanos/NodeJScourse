@@ -1,0 +1,37 @@
+a login method that
+  1) Check if email and password were inputed
+  2) Check if user exists(based on email) && password is correct and explicitly selct password using an instance method
+  3) If everything ok, send token to client
+
+a middlewere that protects a route(eg: a page with private data):
+  1) Getting token and check of it's there
+  2) Verification token - if the token was modified or expired
+    There are 2 types of error that can occur:
+      - the token has expired
+      - invalid token
+  3) Check if user still exists
+  4) Check if user changed password after the token was issued
+  5) Pass the data, so we don't have to read the JWT token again
+
+a function that returns a middlewere that verify if your role(['user', 'guide', 'lead-guide', 'admin']) allows you to do certain actions
+
+a forgotPassword funciton that:
+  1) Get user based on POSTed email
+  2) Generate the random reset token and add the encrypted version of it to the DB
+  3) Send it to user's email
+
+a resetPassword function that:
+  1) Get user based on the token
+  2) If token has not expired, and there is user, set the new password
+  3) Update changedPasswordAt property for the user
+  4) Log the user in, send JWT
+
+an update current password function that:
+  1) Verify if password from the body is correct
+  2) If so, update it with the new password
+  3) Log user in, send JWT
+
+an updateMe function that:
+  1) Create error if user POSTs password data
+  2) Filtered out unwanted fields names that are not allowed to be updated
+  3) Update user document
