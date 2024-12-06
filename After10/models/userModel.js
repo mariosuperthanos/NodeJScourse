@@ -105,7 +105,7 @@ userSchema.methods.createPasswordResetToken = function() {
   console.log({ resetToken }, this.passwordResetToken);
 
   this.passwordResetExpires = Date.now()+ 10 * 60 * 1000;
-
+  // send with email the decrypted version and add the encrypted one into the DB
   return resetToken;
 }
 
