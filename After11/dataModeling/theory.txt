@@ -1,0 +1,20 @@
+1. Embedding the data:
+  1. Get the users' IDs to embed from the request body.
+  2. Search for the users in the database.
+
+Child referencing:
+2. Referencing the data:
+  1. Get the users' IDs to reference from the request's body.
+  2. Define an array with references(IDs) in the schema:
+  guides: [
+    {
+      type: mongoose.Schema.ObjectId,
+      // The field to search for
+      ref: 'User' // The model to search in
+    }
+  ]
+  3. Replace the IDs in the query function using .populate(<nameOfTheArray>).
+  'populate' allows you to replace a referenced field in a document (stored as an ObjectId) with the actual document.
+
+3. Virtual populate:
+  - don't do POPULATE CHAINS

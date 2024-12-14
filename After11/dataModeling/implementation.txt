@@ -1,0 +1,58 @@
+Parent referencing:
+Review model:
+  - We don't know how muchg the reviews number will grow
+  so it can be a 1:few/many relationship, but it also can be a 1:ton relationship, so we choose the parent referncing(the review points to the tour and the user)
+  I implemented virtual populate show the data in the query:
+    tourSchema.virtual('reviews', {
+      ref: 'Review', // where to search in
+      foreignField: 'tour', // the review's field that contain the ID of the current tour
+      localField: '_id' // what field to search for and compare
+    })
+    
+    in query function:
+      await Tour.findById(req.params.id).populate('reviews');
+
+virtual property = we don't store this data in DB because we can calculate it based on other data from the DB
+
+
+Nested routes:
+{ mergeParams: true } allows a router to be mounted by another route, getting their parameters:
+
+  const router= express.Router({ mergeParams: true });
+
+  router
+    .route('/')
+    .get(reviewController.getAllReviews)
+    .post(
+      authController.protect,
+      authController.restrictTo('user'),
+      reviewController.createReview,
+    );
+
+  // this nested route will apply the review router methods on that specific route
+  router.use('/:tourId/reviews', reviewRouter);
+
+
+Factory Handlers:
+  This approach enables the application of the DRY (Don't Repeat Yourself) principle in the codebase. For each HTTP handler, such as deleteTour, createReview, getAllTours, and others, I implemented a generic function that takes a Model (and optional populate options if needed) and returns the corresponding handler function.
+
+Add the missing authorization middleweres
+
+Indexes: tourSchema.index({ slug: 1 });
+These will improve the performance of the queries(sorting, filtering), but they cost memory
+
+eg. reviewSchema.index({ tour: 1, user: 1 }, { unique: true })
+
+
+.statics VS .methods
+
+.statics is for function that applies on the entire Model
+Eg. calcAverageRatings is a function that calculate and save the avgRating and nrRatings of the tour's ID that the review points to. 
+
+In a middlewere, I called the calcAverageRatings function on the Model itself(Review), because it applies to all the review from Review model
+
+.methods are for a specific document
+
+Problem:
+To add calcAverageRatings to update/delete handlers, I created a pre middleware that retrieves the ID of the tour for which the review stats are going to be recalculated (because you can't get the tour ID in the post middleware).
+Then, I created a post middleware that calls the calcAverageRatings static method on the entire model (Review) using the tour ID stored in the 'this' keyword. 
