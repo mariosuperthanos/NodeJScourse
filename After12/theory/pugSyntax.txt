@@ -1,0 +1,23 @@
+paranthesis() for attributes
+
+include- replacing a peace of code with another module's code
+
+extends- make a child file based on parent file, replacing the BLOCK - the specific content
+  eg. extends moduleName
+      block blockName
+        <html...> 
+      block append/prepend blockName
+      
+you have to use minus('-') to write JS code inside a pug module
+  eg. - const x = 9;
+
+pug has built in loops
+  eg. each tour in tours // tours is an array passed as an argument
+
+functions in pug:
+  eg. mixin name(params...)
+        <html...>'
+
+calling a function:
+  eg. +functionName(args...)
+
